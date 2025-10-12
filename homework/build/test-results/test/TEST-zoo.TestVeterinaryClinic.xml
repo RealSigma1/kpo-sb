@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="zoo.TestVeterinaryClinic" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-10-12T20:23:41.527Z" hostname="DESKTOP-MAHVHFA" time="0.001">
+  <properties/>
+  <testcase name="testCheckHealth_SetsHealthStatus()" classname="zoo.TestVeterinaryClinic" time="0.0"/>
+  <testcase name="testCheckHealth_ReturnsBoolean()" classname="zoo.TestVeterinaryClinic" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

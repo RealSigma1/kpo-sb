@@ -20,4 +20,12 @@ public abstract class LivingEntity implements IAlive {
     public int getFood() {
         return food;
     }
+
+    public void setFood(int food) {
+        if (food > 0) {
+            this.food = food;
+        } else {
+            throw new IllegalArgumentException("Food amount must be positive");
+        }
+    }
 }

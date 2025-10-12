@@ -54,14 +54,14 @@ class TestZooService {
         zooService.addAnimal(tiger);
 
         int totalFood = zooService.calculateTotalFood();
-        assertEquals(11, totalFood); // 3 (monkey) + 8 (tiger) = 11
+        assertEquals(11, totalFood);
     }
 
     @Test
     void testGetAnimalsForContactZoo() {
-        Monkey kindMonkey = new Monkey("KindMonkey", 1001, 7); // kindness > 5
-        Rabbit unkindRabbit = new Rabbit("UnkindRabbit", 1002, 3); // kindness <= 5
-        Tiger tiger = new Tiger("Tiger", 1003); // хищник
+        Monkey kindMonkey = new Monkey("KindMonkey", 1001, 7);
+        Rabbit unkindRabbit = new Rabbit("UnkindRabbit", 1002, 3);
+        Tiger tiger = new Tiger("Tiger", 1003);
 
         zooService.addAnimal(kindMonkey);
         zooService.addAnimal(unkindRabbit);

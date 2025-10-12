@@ -54,8 +54,8 @@ class TestAnimalClasses {
 
     @Test
     void testHerbivoreCanBeInContactZoo() {
-        Monkey kindMonkey = new Monkey("Kind", 1001, 7); // kindness > 5
-        Monkey unkindMonkey = new Monkey("Unkind", 1002, 4); // kindness <= 5
+        Monkey kindMonkey = new Monkey("Kind", 1001, 7);
+        Monkey unkindMonkey = new Monkey("Unkind", 1002, 4);
 
         kindMonkey.setHealthStatus(true);
         unkindMonkey.setHealthStatus(true);

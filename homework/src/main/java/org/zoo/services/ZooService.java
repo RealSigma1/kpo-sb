@@ -27,8 +27,16 @@ public class ZooService {
         things.add(thing);
     }
 
+    public List<Animal> getAnimals() {
+        return animals;
+    }
+
     public int calculateTotalFood() {
-        return animals.stream().mapToInt(Animal::getFood).sum();
+        int totalFood = 0;
+        for (Animal animal : animals) {
+            totalFood += animal.getFood();
+        }
+        return totalFood;
     }
 
     public List<Herbivore> getAnimalsForContactZoo() {
@@ -51,23 +59,71 @@ public class ZooService {
         return inventory;
     }
 
+    public boolean updateAnimalFood(Animal animal, int newFoodAmount) {
+        if (newFoodAmount <= 0) {
+            System.out.println("Food amount must be positive!");
+            return false;
+        }
+
+        try {
+            animal.setFood(newFoodAmount);
+            return true;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+    }
+
     public void printReport() {
         System.out.println("=== ZOO REPORT ===");
         System.out.println("Total animals: " + animals.size());
         System.out.println("Total food required: " + calculateTotalFood() + " kg/day");
 
+        System.out.println("\nDetailed animal information:");
+        if (animals.isEmpty()) {
+            System.out.println("No animals in the zoo.");
+        } else {
+            for (Animal animal : animals) {
+                String type = getAnimalType(animal);
+                String healthStatus = animal.isHealthy() ? "Healthy" : "Not healthy";
+                System.out.printf("- %s: %s (Food: %d kg/day, Inventory #: %d, Status: %s)",
+                        type, animal.getName(), animal.getFood(), animal.getNumber(), healthStatus);
+
+                if (animal instanceof Herbivore) {
+                    Herbivore herbivore = (Herbivore) animal;
+                    System.out.printf(" [Kindness: %d/10]", herbivore.getKindnessLevel());
+                }
+                System.out.println();
+            }
+        }
+
         System.out.println("\nAnimals for contact zoo:");
-        for (Herbivore animal : getAnimalsForContactZoo()) {
-            System.out.println("- " + animal.getName() + " (Kindness: " + animal.getKindnessLevel() + ")");
+        List<Herbivore> contactZooAnimals = getAnimalsForContactZoo();
+        if (contactZooAnimals.isEmpty()) {
+            System.out.println("No animals available for contact zoo.");
+        } else {
+            for (Herbivore animal : contactZooAnimals) {
+                System.out.printf("- %s (Kindness: %d/10, Food: %d kg/day)%n",
+                        animal.getName(), animal.getKindnessLevel(), animal.getFood());
+            }
         }
 
         System.out.println("\nInventory items:");
-        for (IInventory item : getAllInventory()) {
-            System.out.println("- " + item.getInventoryInfo());
+        List<IInventory> inventory = getAllInventory();
+        if (inventory.isEmpty()) {
+            System.out.println("No inventory items.");
+        } else {
+            for (IInventory item : inventory) {
+                System.out.println("- " + item.getInventoryInfo());
+            }
         }
     }
 
-    public List<Animal> getAnimals() {
-        return animals;
+    private String getAnimalType(Animal animal) {
+        if (animal instanceof Monkey) return "Monkey";
+        if (animal instanceof Rabbit) return "Rabbit";
+        if (animal instanceof Tiger) return "Tiger";
+        if (animal instanceof Wolf) return "Wolf";
+        return "Unknown Animal";
     }
 }

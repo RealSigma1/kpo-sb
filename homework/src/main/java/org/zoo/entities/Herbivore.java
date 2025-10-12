@@ -1,0 +1,18 @@
+package org.zoo.entities;
+
+public abstract class Herbivore extends Animal {
+    protected int kindnessLevel;
+
+    protected Herbivore(String name, int food, int number, int kindnessLevel) {
+        super(name, food, number);
+        this.kindnessLevel = kindnessLevel;
+    }
+
+    public int getKindnessLevel() {
+        return kindnessLevel;
+    }
+
+    public boolean canBeInContactZoo() {
+        return kindnessLevel > 5 && isHealthy;
+    }
+}

@@ -33,8 +33,12 @@
 - **Хищники**: Tiger, Wolf (не могут в контактный зоопарк). 
 
   Автоматическая проверка здоровья перед добавлением
+  Автоматическая установка количества потребления для животных (можно менять с помощью опции)
+## Согласно Jacoco, имеет 86% покрытие тестов
 
-**Согласно Jacoco, имеет 86% покрытие тестов**
 <img width="2877" height="693" alt="image" src="https://github.com/user-attachments/assets/ec5df7eb-3004-47f6-8f3d-31cf75fe86c7" />
 
 
+## Интерфейс
+
+### <img width="649" height="307" alt="image" src="https://github.com/user-attachments/assets/5cb082b4-ba30-43c9-b275-c1d2eb62ca62" />

@@ -12,6 +12,10 @@
           </set>
         </option>
       </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/project/practise-6" />
+        <option name="gradleJvm" value="corretto-21" />
+      </GradleProjectSettings>
     </option>
     <option name="offlineMode" value="true" />
   </component>

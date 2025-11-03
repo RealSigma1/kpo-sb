@@ -12,4 +12,4 @@
 <details> 
 <summary>Ссылки</summary>
 1. 
-</details>
+</details>  

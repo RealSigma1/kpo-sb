@@ -1,0 +1,7 @@
+com\example\fileanalysisservice\controller\AnalysisController.class
+com\example\fileanalysisservice\entity\PlagiarismReport.class
+com\example\fileanalysisservice\FileAnalysisServiceApplication.class
+com\example\fileanalysisservice\service\PlagiarismChecker.class
+com\example\fileanalysisservice\repository\PlagiarismReportRepository.class
+com\example\fileanalysisservice\controller\AnalysisController$AnalysisRequest.class
+com\example\fileanalysisservice\controller\AnalysisController$PlagiarismReportResponse.class

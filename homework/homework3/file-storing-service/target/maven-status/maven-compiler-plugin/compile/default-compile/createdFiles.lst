@@ -1,0 +1,6 @@
+com\example\filestoringservice\entity\WorkSubmission.class
+com\example\filestoringservice\repository\WorkSubmissionRepository.class
+com\example\filestoringservice\controller\WorkController.class
+com\example\filestoringservice\service\AnalysisServiceClient$AnalysisRequest.class
+com\example\filestoringservice\service\AnalysisServiceClient.class
+com\example\filestoringservice\FileStoringServiceApplication.class

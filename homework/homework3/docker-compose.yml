@@ -1,0 +1,22 @@
+services:
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - file-storing-service
+      - file-analysis-service
+
+  file-storing-service:
+    build: ./file-storing-service
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./uploads:/uploads
+
+  file-analysis-service:
+    build: ./file-analysis-service
+    ports:
+      - "8082:8082"
+    volumes:
+      - ./uploads:/uploads

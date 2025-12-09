@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: analysis
+          uri: http://file-analysis-service:8082
+          predicates:
+            - Path=/works/{workId}/reports
+        - id: storing
+          uri: http://file-storing-service:8081
+          predicates:
+            - Path=/works/**

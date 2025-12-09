@@ -13,6 +13,7 @@ public class PlagiarismReport {
     private Long id;
 
     private Long workId;
+    private String fileHash;
     private boolean plagiarismDetected;
     private String wordCloudUrl;
     private LocalDateTime createdAt;
@@ -21,36 +22,44 @@ public class PlagiarismReport {
         return id;
     }
 
-    public Long getWorkId() {
-        return workId;
-    }
-
-    public boolean isPlagiarismDetected() {
-        return plagiarismDetected;
-    }
-
-    public String getWordCloudUrl() {
-        return wordCloudUrl;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getWorkId() {
+        return workId;
     }
 
     public void setWorkId(Long workId) {
         this.workId = workId;
     }
 
+    public String getFileHash() {
+        return fileHash;
+    }
+
+    public void setFileHash(String fileHash) {
+        this.fileHash = fileHash;
+    }
+
+    public boolean isPlagiarismDetected() {
+        return plagiarismDetected;
+    }
+
     public void setPlagiarismDetected(boolean plagiarismDetected) {
         this.plagiarismDetected = plagiarismDetected;
     }
 
+    public String getWordCloudUrl() {
+        return wordCloudUrl;
+    }
+
     public void setWordCloudUrl(String wordCloudUrl) {
         this.wordCloudUrl = wordCloudUrl;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {

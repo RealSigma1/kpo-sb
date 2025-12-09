@@ -24,7 +24,7 @@ public class AnalysisController {
     @PostMapping("/analyze")
     public ResponseEntity<Void> analyzeWork(@RequestBody AnalysisRequest request) {
         try {
-            plagiarismChecker.analyze(request.getWorkId(), request.getFileHash(), request.getFilePath());
+            plagiarismChecker.analyze(request.getWorkId(), request.getFilePath());
             return ResponseEntity.accepted().build();
         } catch (IOException e) {
             return ResponseEntity.internalServerError().build();
@@ -48,15 +48,10 @@ public class AnalysisController {
 
     private static class AnalysisRequest {
         private Long workId;
-        private String fileHash;
         private String filePath;
 
         public Long getWorkId() {
             return workId;
-        }
-
-        public String getFileHash() {
-            return fileHash;
         }
 
         public String getFilePath() {
@@ -80,24 +75,10 @@ public class AnalysisController {
             this.createdAt = createdAt;
         }
 
-        public Long getId() {
-            return id;
-        }
-
-        public Long getWorkId() {
-            return workId;
-        }
-
-        public boolean isPlagiarismDetected() {
-            return plagiarismDetected;
-        }
-
-        public String getWordCloudUrl() {
-            return wordCloudUrl;
-        }
-
-        public LocalDateTime getCreatedAt() {
-            return createdAt;
-        }
+        public Long getId() { return id; }
+        public Long getWorkId() { return workId; }
+        public boolean isPlagiarismDetected() { return plagiarismDetected; }
+        public String getWordCloudUrl() { return wordCloudUrl; }
+        public LocalDateTime getCreatedAt() { return createdAt; }
     }
 }

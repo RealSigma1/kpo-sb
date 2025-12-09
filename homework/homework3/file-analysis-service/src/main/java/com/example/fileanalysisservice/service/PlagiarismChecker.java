@@ -6,15 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,14 +27,23 @@ public class PlagiarismChecker {
     }
 
     @Transactional
-    public void analyze(Long workId, String fileHash, String filePath) throws IOException {
-        boolean isPlagiarism = false;
+    public void analyze(Long workId, String filePath) throws IOException {
+        Path path = Path.of(filePath);
+        byte[] fileBytes = Files.readAllBytes(path);
+        String text = new String(fileBytes);
 
-        String text = extractTextFromFile(filePath);
+        String fileHash = calculateSHA256(fileBytes);
+
+        List<PlagiarismReport> existingReports = reportRepository.findByFileHash(fileHash);
+
+        boolean isPlagiarism = existingReports.stream()
+                .anyMatch(report -> !report.getWorkId().equals(workId));
+
         String wordCloudUrl = generateWordCloudUrl(text);
 
         PlagiarismReport report = new PlagiarismReport();
         report.setWorkId(workId);
+        report.setFileHash(fileHash);
         report.setPlagiarismDetected(isPlagiarism);
         report.setWordCloudUrl(wordCloudUrl);
         report.setCreatedAt(LocalDateTime.now());
@@ -47,11 +55,18 @@ public class PlagiarismChecker {
         return reportRepository.findByWorkId(workId);
     }
 
-    private String extractTextFromFile(String filePath) throws IOException {
-        Path path = Path.of(filePath);
-        String content = new String(Files.readAllBytes(path));
-
-        return content;
+    private String calculateSHA256(byte[] data) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(data);
+            StringBuilder hex = new StringBuilder();
+            for (byte b : hash) {
+                hex.append(String.format("%02x", b));
+            }
+            return hex.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("SHA-256 not supported", e);
+        }
     }
 
     private String generateWordCloudUrl(String text) {
@@ -70,7 +85,6 @@ public class PlagiarismChecker {
         }
 
         String encodedText = textForCloud.toString().trim().replace(" ", "%20");
-
         return "https://quickchart.io/wordcloud?text=" + encodedText +
                 "&fontFamily=Arial&fontSize=15&scale=0.75&width=800&height=400&removeStopwords=true";
     }

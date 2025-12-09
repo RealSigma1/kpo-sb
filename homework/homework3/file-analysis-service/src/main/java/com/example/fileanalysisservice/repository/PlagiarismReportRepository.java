@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface PlagiarismReportRepository extends JpaRepository<PlagiarismReport, Long> {
     List<PlagiarismReport> findByWorkId(Long workId);
+    List<PlagiarismReport> findByFileHash(String fileHash);
 }

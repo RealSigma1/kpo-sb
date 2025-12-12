@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class PlagiarismChecker {
@@ -30,8 +30,8 @@ public class PlagiarismChecker {
     public void analyze(Long workId, String filePath) throws IOException {
         Path path = Path.of(filePath);
         byte[] fileBytes = Files.readAllBytes(path);
-        String text = new String(fileBytes);
 
+        String text = new String(fileBytes, StandardCharsets.UTF_8);
         String fileHash = calculateSHA256(fileBytes);
 
         List<PlagiarismReport> existingReports = reportRepository.findByFileHash(fileHash);
@@ -59,33 +59,47 @@ public class PlagiarismChecker {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(data);
-            StringBuilder hex = new StringBuilder();
+
+            StringBuilder hexString = new StringBuilder();
             for (byte b : hash) {
-                hex.append(String.format("%02x", b));
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
             }
-            return hex.toString();
+            return hexString.toString();
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("SHA-256 not supported", e);
+            throw new RuntimeException("SHA-256 algorithm not found", e);
         }
     }
 
     private String generateWordCloudUrl(String text) {
-        String cleanedText = text.replaceAll("[^a-zA-Zа-яА-Я0-9\\s]", "")
+        String cleanedText = text
                 .toLowerCase()
-                .trim();
+                .replaceAll("[^a-zA-Zа-яА-Я0-9]+", " ")
+                .trim()
+                .replaceAll("\\s+", " ");
 
-        String[] words = cleanedText.split("\\s+");
-        int maxWords = Math.min(words.length, 500);
-
-        StringBuilder textForCloud = new StringBuilder();
-        for (int i = 0; i < maxWords; i++) {
-            if (!words[i].isEmpty()) {
-                textForCloud.append(words[i]).append(" ");
-            }
+        if (cleanedText.isEmpty()) {
+            cleanedText = "empty";
         }
 
-        String encodedText = textForCloud.toString().trim().replace(" ", "%20");
-        return "https://quickchart.io/wordcloud?text=" + encodedText +
-                "&fontFamily=Arial&fontSize=15&scale=0.75&width=800&height=400&removeStopwords=true";
+        int maxChars = 1500;
+        if (cleanedText.length() > maxChars) {
+            cleanedText = cleanedText.substring(0, maxChars);
+        }
+
+        String encodedText = URLEncoder.encode(cleanedText, StandardCharsets.UTF_8);
+
+        return "https://quickchart.io/wordcloud?text=" + encodedText
+                + "&format=png"
+                + "&width=800"
+                + "&height=400"
+                + "&fontFamily=Arial"
+                + "&fontScale=60"
+                + "&scale=linear"
+                + "&removeStopwords=false"
+                + "&backgroundColor=white";
     }
 }

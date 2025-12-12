@@ -42,27 +42,27 @@ PS C:\Users\Admin> echo "Okay" > test3.txt
 Отправляем три запроса
 
 ```bash
-PS C:\Users\Admin> curl.exe POST http://localhost:8080/works -F "studentName=Inal" -F "assignmentName=HW3" -F "file=@test1.txt"
-{"id":1,"studentName":"Inal","assignmentName":"HW3","submittedAt":"2025-12-12T20:38:00.866282231","filePath":"/uploads/99ed9734-9ab1-415a-b298-08c4c134a7ea_test1.txt","fileHash":"a72cd2b01ba06110918793f4549f7cd14584bdaf13939919f9e77b6bc80680ec"}
+PS C:\Users\Admin\desktop\kpo-Shidakov\homework\homework3> curl.exe -X POST "http://localhost:8080/works" -F "studentName=Inal" -F "assignmentName=HW3" -F "file=@test1.txt"
+{"id":1,"studentName":"Inal","assignmentName":"HW3","submittedAt":"2025-12-12T20:52:46.274529957","filePath":"/uploads/e30a0fdc-1027-4255-b83e-593d6d3846a5_test1.txt","fileHash":"a72cd2b01ba06110918793f4549f7cd14584bdaf13939919f9e77b6bc80680ec"}
 
-PS C:\Users\Admin> curl.exe POST http://localhost:8080/works -F "studentName=Stud2" -F "assignmentName=HW3" -F "file=@test2.txt"
-{"id":2,"studentName":"Stud2","assignmentName":"HW3","submittedAt":"2025-12-12T20:38:24.714087939","filePath":"/uploads/b553ee31-571a-48d9-b5ce-e1e54557b104_test2.txt","fileHash":"a72cd2b01ba06110918793f4549f7cd14584bdaf13939919f9e77b6bc80680ec"}
+PS C:\Users\Admin\desktop\kpo-Shidakov\homework\homework3> curl.exe -X POST "http://localhost:8080/works" -F "studentName=Stud2" -F "assignmentName=HW3" -F "file=@test2.txt"
+{"id":2,"studentName":"Stud2","assignmentName":"HW3","submittedAt":"2025-12-12T20:52:59.286102287","filePath":"/uploads/289c0e23-e015-44a9-aeae-0474ec5ed448_test2.txt","fileHash":"a72cd2b01ba06110918793f4549f7cd14584bdaf13939919f9e77b6bc80680ec"}
 
-PS C:\Users\Admin> curl.exe POST http://localhost:8080/works -F "studentName=Stud3" -F "assignmentName=HW3" -F "file=@test3.txt"
-{"id":3,"studentName":"Stud3","assignmentName":"HW3","submittedAt":"2025-12-12T20:38:40.500717238","filePath":"/uploads/485c857f-8d8f-42bf-9715-b404a57fdcdf_test3.txt","fileHash":"a72cd2b01ba06110918793f4549f7cd14584bdaf13939919f9e77b6bc80680ec"}
+PS C:\Users\Admin\desktop\kpo-Shidakov\homework\homework3> curl.exe -X POST "http://localhost:8080/works" -F "studentName=Stud3" -F "assignmentName=HW3" -F "file=@test3.txt"
+{"id":3,"studentName":"Stud3","assignmentName":"HW3","submittedAt":"2025-12-12T20:53:12.321796739","filePath":"/uploads/56e3d7d9-a13a-4e69-9e01-50e2d7c79a4c_test3.txt","fileHash":"a72cd2b01ba06110918793f4549f7cd14584bdaf13939919f9e77b6bc80680ec"}
 ```
 
 Смотрим отчеты по трем файлам, заметим, что первый отправленный файл имеет статуc "plagiarismDetected":false", в то время как другие два имеют статус "plagiarismDetected:true".
 
 ```bash
-PS C:\Users\Admin> curl.exe http://localhost:8080/works/1/reports
-[{"id":1,"workId":1,"plagiarismDetected":false,"wordCloudUrl":"https://quickchart.io/wordcloud?text=o+k+a+y&format=png&width=800&height=400&fontFamily=Arial&fontScale=60&scale=linear&removeStopwords=false&minWordLength=2","createdAt":"2025-12-12T20:38:01.860557"}]
+PS C:\Users\Admin\desktop\kpo-Shidakov\homework\homework3> curl.exe http://localhost:8080/works/1/reports
+[{"id":1,"workId":1,"plagiarismDetected":false,"wordCloudUrl":"https://quickchart.io/wordcloud?text=o+k+a+y&format=png&width=800&height=400&fontFamily=Arial&fontScale=60&scale=linear&removeStopwords=false&backgroundColor=white","createdAt":"2025-12-12T20:52:47.450958"}]
 
-PS C:\Users\Admin> curl.exe http://localhost:8080/works/2/reports
-[{"id":2,"workId":2,"plagiarismDetected":true,"wordCloudUrl":"https://quickchart.io/wordcloud?text=o+k+a+y&format=png&width=800&height=400&fontFamily=Arial&fontScale=60&scale=linear&removeStopwords=false&minWordLength=2","createdAt":"2025-12-12T20:38:24.769593"}]
+PS C:\Users\Admin\desktop\kpo-Shidakov\homework\homework3> curl.exe http://localhost:8080/works/2/reports
+[{"id":2,"workId":2,"plagiarismDetected":true,"wordCloudUrl":"https://quickchart.io/wordcloud?text=o+k+a+y&format=png&width=800&height=400&fontFamily=Arial&fontScale=60&scale=linear&removeStopwords=false&backgroundColor=white","createdAt":"2025-12-12T20:52:59.310316"}]
 
-PS C:\Users\Admin> curl.exe http://localhost:8080/works/3/reports
-[{"id":3,"workId":3,"plagiarismDetected":true,"wordCloudUrl":"https://quickchart.io/wordcloud?text=o+k+a+y&format=png&width=800&height=400&fontFamily=Arial&fontScale=60&scale=linear&removeStopwords=false&minWordLength=2","createdAt":"2025-12-12T20:38:40.524341"}]
+PS C:\Users\Admin\desktop\kpo-Shidakov\homework\homework3> curl.exe http://localhost:8080/works/3/reports
+[{"id":3,"workId":3,"plagiarismDetected":true,"wordCloudUrl":"https://quickchart.io/wordcloud?text=o+k+a+y&format=png&width=800&height=400&fontFamily=Arial&fontScale=60&scale=linear&removeStopwords=false&backgroundColor=white","createdAt":"2025-12-12T20:53:12.33911"}]
 ```
 
 

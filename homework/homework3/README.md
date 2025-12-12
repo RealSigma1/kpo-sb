@@ -64,6 +64,9 @@ PS C:\Users\Admin\desktop\kpo-Shidakov\homework\homework3> curl.exe http://local
 PS C:\Users\Admin\desktop\kpo-Shidakov\homework\homework3> curl.exe http://localhost:8080/works/3/reports
 [{"id":3,"workId":3,"plagiarismDetected":true,"wordCloudUrl":"https://quickchart.io/wordcloud?text=o+k+a+y&format=png&width=800&height=400&fontFamily=Arial&fontScale=60&scale=linear&removeStopwords=false&backgroundColor=white","createdAt":"2025-12-12T20:53:12.33911"}]
 ```
+\
+Следовательно, облако слов на основе данных запросов выглядит так:
+<img width="800" height="400" alt="image" src="https://github.com/user-attachments/assets/d998df22-8eb3-464b-b772-ec7b8d50a8d7" />
 
 
 ## Логика плагиата

@@ -1,0 +1,221 @@
+{
+  "info": {
+    "_postman_id": "c8b38040-4184-49c6-9aa9-8b03d4a55dab",
+    "name": "KPO HW3 — Anti-Plagiarism System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Коллекция для демонстрации всех API микросервисов (gateway + storing + analysis)."
+  },
+  "variable": [
+    {
+      "key": "gatewayUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "storingUrl",
+      "value": "http://localhost:8081"
+    },
+    {
+      "key": "analysisUrl",
+      "value": "http://localhost:8082"
+    },
+    {
+      "key": "workId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "API Gateway (порт 8080)",
+      "item": [
+        {
+          "name": "Upload work (POST /works) — multipart",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "studentName",
+                  "value": "Inal",
+                  "type": "text"
+                },
+                {
+                  "key": "assignmentName",
+                  "value": "HW3",
+                  "type": "text"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "./test.txt"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{gatewayUrl}}/works",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "works"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get reports (GET /works/{workId}/reports)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/works/{{workId}}/reports",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "works",
+                "{{workId}}",
+                "reports"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Download work file (GET /works/{id})",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/works/{{workId}}",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "works",
+                "{{workId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "File Storing Service (порт 8081) — напрямую",
+      "item": [
+        {
+          "name": "Upload work (POST /works) — multipart",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "studentName",
+                  "value": "Inal",
+                  "type": "text"
+                },
+                {
+                  "key": "assignmentName",
+                  "value": "HW3",
+                  "type": "text"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "./test.txt"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{storingUrl}}/works",
+              "host": [
+                "{{storingUrl}}"
+              ],
+              "path": [
+                "works"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Download work file (GET /works/{id})",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{storingUrl}}/works/{{workId}}",
+              "host": [
+                "{{storingUrl}}"
+              ],
+              "path": [
+                "works",
+                "{{workId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "File Analysis Service (порт 8082) — напрямую",
+      "item": [
+        {
+          "name": "Get reports (GET /works/{workId}/reports)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{analysisUrl}}/works/{{workId}}/reports",
+              "host": [
+                "{{analysisUrl}}"
+              ],
+              "path": [
+                "works",
+                "{{workId}}",
+                "reports"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Analyze work (POST /analyze) — internal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workId\": {{workId}},\n  \"filePath\": \"/uploads/example.txt\"\n}"
+            },
+            "url": {
+              "raw": "{{analysisUrl}}/analyze",
+              "host": [
+                "{{analysisUrl}}"
+              ],
+              "path": [
+                "analyze"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

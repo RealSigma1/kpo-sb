@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Orders/Payments (frontend)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>микросервисы Orders + Payments</h1>
+      <p class="sub"></p>
+    </div>
+  </header>
+
+  <main class="wrap grid">
+    <section class="card">
+      <h2>Пользователь</h2>
+      <label class="row">
+        <span>User ID</span>
+        <input id="userId" value="u1" />
+      </label>
+      <div class="row">
+        <button id="btnHealth">Проверить health</button>
+        <span id="healthOut" class="mono small"></span>
+      </div>
+      <p class="hint">Header <span class="mono">X-User-Id</span> отправляется во все запросы.</p>
+    </section>
+
+    <section class="card">
+      <h2>Payments Service</h2>
+      <div class="row">
+        <button id="btnCreateAccount">Создать счёт (идемпотентно)</button>
+      </div>
+
+      <div class="row">
+        <input id="topupAmount" type="number" value="1000" />
+        <button id="btnTopup">Пополнить</button>
+      </div>
+
+      <div class="row">
+        <button id="btnBalance">Показать баланс</button>
+        <span id="balanceOut" class="mono"></span>
+      </div>
+      <div class="small muted">API: <span class="mono">/api/payments/accounts*</span></div>
+    </section>
+
+    <section class="card">
+      <h2>Orders Service</h2>
+      <div class="row">
+        <input id="orderAmount" type="number" value="100" />
+        <input id="orderDesc" value="coffee" />
+        <button id="btnCreateOrder">Создать заказ</button>
+      </div>
+
+      <div class="row">
+        <button id="btnListOrders">Список заказов</button>
+      </div>
+
+      <div class="row">
+        <input id="orderId" placeholder="orderId для статуса" />
+        <button id="btnGetOrder">Статус заказа</button>
+      </div>
+
+      <div class="row">
+        <label class="chk">
+          <input id="autoPoll" type="checkbox" checked />
+          <span>Авто-опрос статуса после создания (1 сек)</span>
+        </label>
+      </div>
+
+      <div id="ordersOut" class="mono box"></div>
+      <div class="small muted">API: <span class="mono">/api/orders/orders*</span></div>
+    </section>
+
+    <section class="card span2">
+      <h2>Логи / ответы</h2>
+      <div class="row">
+        <button id="btnClear">Очистить</button>
+      </div>
+      <pre id="log" class="log"></pre>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap small muted">
+      Если в docker-compose имена сервисов другие — поправьте их в <span class="mono">nginx.conf</span>.
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  rabbitmq:
+    host: ${RABBIT_HOST:rabbitmq}
+    port: ${RABBIT_PORT:5672}
+    username: ${RABBIT_USER:guest}
+    password: ${RABBIT_PASS:guest}
+    listener:
+      simple:
+        acknowledge-mode: manual
+        prefetch: 20
+
+app:
+  queues:
+    paymentRequest: ${PAYMENT_REQUEST_QUEUE:orders.payments.requested}
+    paymentResult: ${PAYMENT_RESULT_QUEUE:payments.orders.result}
+  outbox:
+    publishIntervalMs: ${OUTBOX_PUBLISH_INTERVAL_MS:1000}
+    batchSize: ${OUTBOX_BATCH_SIZE:50}
+    lockTimeoutSec: ${OUTBOX_LOCK_TIMEOUT_SEC:30}

@@ -1,0 +1,17 @@
+com\dz4\orders\config\RabbitConfig.class
+com\dz4\orders\OrdersApplication.class
+com\dz4\orders\dto\OrderDto.class
+com\dz4\orders\repo\OutboxRepository.class
+com\dz4\orders\events\PaymentResult.class
+com\dz4\orders\service\OrdersService.class
+com\dz4\orders\repo\OutboxRepository$1.class
+com\dz4\orders\repo\OrdersRepository.class
+com\dz4\orders\http\RestExceptionHandler.class
+com\dz4\orders\model\OrderStatus.class
+com\dz4\orders\repo\OrdersRepository$1.class
+com\dz4\orders\repo\OutboxRepository$OutboxItem.class
+com\dz4\orders\worker\OutboxPublisher.class
+com\dz4\orders\worker\PaymentResultListener.class
+com\dz4\orders\http\OrdersController.class
+com\dz4\orders\dto\CreateOrderRequest.class
+com\dz4\orders\events\PaymentRequested.class
